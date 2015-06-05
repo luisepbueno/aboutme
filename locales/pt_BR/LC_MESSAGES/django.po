@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-04 14:39+0000\n"
+"POT-Creation-Date: 2015-06-05 15:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: LUIS BUENO <luisbueno@yahoo.com.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
 #: aboutme/settings.py:97
 msgid "English"
@@ -30,8 +30,8 @@ msgid "French"
 msgstr "Francês"
 
 #: feedbacks/templates/friends_feedbacks.html:5
-#: feedbacks/templates/friends_feedbacks.html:9 templates/base_home.html:14
-#: templates/feedbacks.html:6 templates/feedbacks.html.py:13
+#: feedbacks/templates/friends_feedbacks.html:9 templates/feedbacks.html:6
+#: templates/feedbacks.html.py:13 templates/menu.html:5
 msgid "Feedbacks"
 msgstr "Feedbacks"
 
@@ -80,7 +80,7 @@ msgid "Submit"
 msgstr "Postar"
 
 #: friends/templates/friends.html:5 friends/templates/friends.html.py:8
-#: templates/base_home.html:24
+#: templates/menu.html:4
 msgid "Friends"
 msgstr "Amigos"
 
@@ -88,7 +88,7 @@ msgstr "Amigos"
 msgid "You don't have any friends so far. Invite more friends!"
 msgstr "Você não tem nenhum amigo. Convide mais amigos!"
 
-#: home/templates/home.html:5 templates/base_home.html:13
+#: home/templates/home.html:5 templates/menu.html:3
 msgid "Home"
 msgstr "Início"
 
@@ -145,19 +145,6 @@ msgstr "Sobremim"
 msgid "Feedbacks about your friends"
 msgstr "Feedbacks sobre os seus amigos"
 
-#: templates/base_home.html:15
-#, fuzzy
-msgid "My Feedbacks"
-msgstr "Meus feedbacks"
-
-#: templates/base_home.html:47
-msgid "Profile"
-msgstr "Perfil"
-
-#: templates/base_home.html:48
-msgid "Logout"
-msgstr "Logout"
-
 #: templates/feedbacks.html:14
 msgid "new"
 msgstr "novo"
@@ -165,6 +152,19 @@ msgstr "novo"
 #: templates/feedbacks.html:15
 msgid "No feedbacks"
 msgstr "Sem feedbacks"
+
+#: templates/menu.html:6
+#, fuzzy
+msgid "My Feedbacks"
+msgstr "Meus feedbacks"
+
+#: templates/menu.html:38
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/menu.html:39
+msgid "Logout"
+msgstr "Logout"
 
 #: user_login/templates/login.html:50
 msgid "Login"
