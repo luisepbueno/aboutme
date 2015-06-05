@@ -1,0 +1,97 @@
+{% extends "base_home.html" %}
+
+{% load i18n %}
+
+{% block page_title %}AboutMe - {% trans "My feedbacks" %}{% endblock %}
+
+{% block content %}
+<h1 class="section-header">My Feedbacks <small>{{ new_feedbacks }} {% trans new %}</small></h1>
+
+<div class="box box-lg box-horizontal">
+    <div class="user-pic">
+        <img src="xyz"></img>
+    </div>
+    <div style="margin-left: 15px;">
+        <h2>{{ friend.first_name }} {{ friend.last_name }}</h2>
+    </div>
+</div>
+
+<br>
+    
+{% for feedback in feedbacks|dictsortreversed:"post_date" %}
+
+    {% if forloop.counter0|divisibleby:2 %}
+        <div class="row" style="margin-bottom: 25px">
+    {% endif %}
+    
+    <div class="box box-lg feedback-box col-md-6">
+        <div class="feedback-info">
+            <div class="feedback-msg well">
+                <div class="pull-right">{% if feedback.new or not feedback.approved %}<span class="new-feedback-notif">new!</span>{% endif %}</div>
+                <p class="lead">{{ feedback.message }}</p>
+            </div>
+
+            <div class="feedback-post-date small pull-right">
+                {% if not feedback.anonymous %}
+                    <b>{{ feedback.poster.first_name }} {{ feedback.poster.last_name }}</b> - 
+                {% endif %}
+                {{  feedback.post_date }}
+            </div>
+            
+            <div class="pull-right">
+                {% if feedback.approved %}
+                    Feedback published
+                {% else %}
+                    {% trans "Feedback not published" %} - <span><a href="/feedbacks/{{ feedback.id }}/publish">{% trans "Publish it!" %}</a></span>
+                {% endif %}
+            </div>
+
+            <div class="pull-right">
+                <a href="#" class="delete_feedback" feedback_id="{{ feedback.id }}">{% trans "Delete feedback" %}</a>
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    {% if not forloop.counter0|divisibleby:2 or feedbacks|length == forloop.counter %}
+        </div>
+    {% endif %}
+    
+{% empty %}
+
+    {% trans "No feedbacks for you. Try inviting more friends." %}
+
+{% endfor %}
+
+<!-- Delete feedback dialog box -->
+<div id="delete-feedback-confirm" title="Delete feedback">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>{% trans "Are you sure you want to delete this feedback?" %}</p>
+</div>
+
+<script language="javascript" type="text/javascript">
+$(document).ready(function() {
+    $("#delete-feedback-confirm").hide();
+    $("a.delete_feedback").click(deleteFeedback);
+});
+
+function deleteFeedback() {
+    var feedback_id = $(this).attr("feedback_id");
+    
+    $("#delete-feedback-confirm").dialog({
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Yes": function() {
+                $(this).dialog("close");
+                window.location = "/feedbacks/" + feedback_id +  "/delete";
+            },
+            "No": function() {
+                $(this).dialog("close");
+            },
+        }
+    });
+}
+</script>
+
+{% endblock %}

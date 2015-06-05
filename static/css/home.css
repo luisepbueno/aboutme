@@ -1,0 +1,77 @@
+.section-header {
+    margin-bottom: 35px;
+}
+
+.box {
+    /*border: black 1px solid;*/
+    padding: 5px;
+    /*margin: 5px;*/
+    display: table;
+}
+
+.box-border {
+    border: black 1px solid;
+}
+
+.box-horizontal div {
+    float: left;
+}
+
+.box-lg .user-pic img {
+    width: 75px;
+    height: 75px;
+    border: black 1px solid;
+}
+
+.box-sm .user-pic img {
+    width: 50px;
+    height: 50px;
+    border: black 1px solid;
+}
+
+.feedback-box .user-pic {
+    float: left;
+}
+
+.feedback-box .feedback-info {
+    margin-left: 15px;
+    float: left;
+    width: 80%;
+}
+
+.feedback-box .feedback-info div {
+    clear: both;
+}
+
+.feedback-box .feedback-target {
+    font-weight: bold;
+}
+
+.feedback-box .feedback-msg {
+}
+
+.feedback-box .feedback-date {
+}
+
+.notification-icon {
+    position: absolute;
+    background-color: red;
+    width: 15px;
+    height: 15px;
+    
+    text-align: center;
+    font-size: 12px;
+
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    
+    padding: 0;
+    margin: 0;
+    z-index: 5000;
+}
+
+.new-feedback-notif {
+    color: red;
+    font-weight: bold;
+}

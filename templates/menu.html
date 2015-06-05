@@ -1,0 +1,68 @@
+{% load i18n %}
+
+{% trans "Home" as home_button %}
+{% trans "Friends" as friends_button %}
+{% trans "Feedbacks" as feedbacks_button %}
+{% trans "My Feedbacks" as my_feedbacks_button %}
+
+<nav class="navbar navbar-default">
+    <div class="container">
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav">
+                <li id="home" class="menu-item"><a href="{% url 'home' %}">{{ home_button }}</a></li>
+                <li id="friends" class="menu-item"><a href="{% url 'friends' %}">{{ friends_button }}</a></li>
+                <li id="feedbacks" class="menu-item"><a href="{% url 'feedbacks' %}">{{ feedbacks_button }}</a></li>
+                <li id="my-feedbacks" class="menu-item"><a href="{% url 'friends_feedbacks' user.id %}">{{ my_feedbacks_button }}</a><li>
+            </ul>
+
+            <ul class="nav navbar-nav pull-right">
+            
+                <!-- dropdown with the available languages -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false">{{ LANGUAGE_CODE|language_name_local }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">                   
+                        {% for lang in LANGUAGES %}
+                            <li><a href="#" class="lang-selector" lang-code="{{ lang.0 }}">{{ lang.1 }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <!-- user dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false">{{ user.first_name }} {{ user.last_name }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'user_profile' %}">{% trans "Profile" %}</a></li>
+                        <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div> <!-- .navbar-collapse -->
+    </div> <!-- .container-fluid -->
+</nav>
+
+<!-- hidden form to set the language -->
+<form id="set-lang-form" action="{% url 'set_language' %}" method="post">
+{% csrf_token %}
+<input name="next" type="hidden" value="{{ redirect_to }}"/>
+<input id="lang-code" name="language" type="hidden" value="">
+</form>
+
+<script language="javascript" type="text/javascript">
+
+/* get the selected language code
+   and submit the form to set it */
+
+$(document).ready(function() {
+    $("a.lang-selector").click(selectLang);
+});
+
+function selectLang() {
+    var lang_code = $(this).attr("lang-code");
+    $("form#set-lang-form #lang-code").attr("value", lang_code);
+    $("form#set-lang-form").submit();
+}
+</script>

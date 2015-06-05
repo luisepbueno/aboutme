@@ -1,0 +1,47 @@
+{% extends "base_home.html" %}
+
+{% load i18n %}
+
+{% block page_title %}AboutMe - {% trans "Feedbacks" %}{% endblock %}
+
+{% block content %}
+
+<h1 class="section-header">{% trans "Feedbacks" %}</small></h1>
+
+<div class="box box-lg box-horizontal">
+    <div class="user-pic">
+        <img src="xyz"></img>
+    </div>
+    <div style="margin-left: 15px;">
+        <h2>{{ friend.first_name }} {{ friend.last_name }}</h2>
+    </div>
+</div>
+
+<br>
+
+<a href="/feedbacks/{{ friend.id }}/write">{% trans "Write a feedback for " %}{{ friend.first_name }} {{ friend.last_name }}</a><br><br>
+    
+{% for feedback in feedbacks|dictsortreversed:"post_date" %}
+
+    {% if forloop.counter0|divisibleby:2 %}
+        <div class="row" style="margin-bottom: 25px">
+    {% endif %}
+    
+    <div class="box box-lg feedback-box col-md-6">
+        <div class="feedback-info">
+            <div class="feedback-msg well"><p class="lead">{{ feedback.message }}</p></div>
+            <div class="feedback-post-date small pull-right">{{  feedback.post_date }}</div>
+        </div>
+    </div>
+
+    {% if not forloop.counter0|divisibleby:2 or feedbacks|length == forloop.counter%}
+        </div>
+    {% endif %}
+
+{% empty %}
+
+    {% trans "No feedbacks." %}
+
+{% endfor %}
+
+{% endblock %}

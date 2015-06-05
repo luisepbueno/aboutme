@@ -1,0 +1,53 @@
+{% extends "base_home.html" %}
+
+{% load i18n %}
+
+{% block page_title %}AboutMe - {% trans "Write feedback" %}{% endblock %}
+
+{% block content %}
+
+<h1 class="section-header">Write feedback for <small>{{ target_user.first_name }} {{ target_user.last_name }}</small></h1>
+
+{% for error in errors %}
+    <p class="text-danger">{{ error }}</p>
+{% endfor %}
+    
+{% if feedback_posted %}
+    <p class="text-success">{% trans "Feedback posted" %}</p>
+{% else %}
+<div class="row">
+
+<div class="box box-lg feedback-box col-md-12">
+
+    <div class="user-pic">
+        <img src="xyz"></img>
+    </div>
+        
+    <div class="feedback-info">
+    
+        <div class="feedback-msg">
+            <form id="contact-form" method="post" action="">
+                {% csrf_token %}
+            
+                {% for field in form %}
+                    <div class="form-group {% if field.errors %}has-error{% endif %}">
+                        <label for="{{ field.id_for_label }}" class="control-label">{{ field.label }}: </label>
+                        <div>
+                            {{ field }}
+                        </div>
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+            
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div><!-- row -->
+{% endif %}
+    
+{% endblock %}

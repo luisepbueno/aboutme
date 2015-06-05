@@ -1,0 +1,18 @@
+div#main-container {
+    /*width: 800px;*/
+    height: 100%;
+    /*border-left: black 1px solid;
+    border-right: black 1px solid;*/
+}
+
+div#left-container {
+    float: left;
+    width: 45%;
+    padding: 10px;
+}
+
+div#right-container {
+    float: left;
+    width: 45%;
+    padding: 10px;
+}

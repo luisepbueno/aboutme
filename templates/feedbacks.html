@@ -1,0 +1,53 @@
+{% extends "base_home.html" %}
+
+{% load i18n %}
+
+{% trans "AboutMe" as app_title %}
+{% trans "Feedbacks" as section_title %}
+
+{% block page_title %}{{ app_title }} - {{ section_title }}{% endblock %}
+
+{% block content %}
+
+{% trans "AboutMe" as app_title %}
+{% trans "Feedbacks" as section_title %}
+{% trans "new" as new_feedback_notif %}
+{% trans "No feedbacks" as no_feedbacks %}
+
+<h1 class="section-header">{{ section_title }} <small>{{ new_feedbacks }} {{ new_feedback_notif }}</h1>
+    
+{% for feedback in feedbacks|dictsortreversed:"post_date" %}
+
+    {% if forloop.counter0|divisibleby:2 %}
+        <div class="row" style="margin-bottom: 25px">
+    {% endif %}
+    
+    <div class="box box-lg feedback-box col-md-6">
+        <div class="user-pic">
+            <img src="xyz"></img>
+        </div>
+        <div class="feedback-info">
+            <div class="feedback-target"><a href="/feedbacks/{{ feedback.target.id }}">{{ feedback.target.first_name }} {{ feedback.target.last_name }}</a>
+                {% if feedback.new %}<span> - </span><span class="new-feedback-notif">{{ new_feedback_notif }}</span>{% endif %}
+            </div>
+            <div class="feedback-msg well"><p class="lead">{{ feedback.message }}</p></div>
+            <div class="feedback-post-date small pull-right">
+                {% if not feedback.anonymous %}
+                    {{ feedback.poster.first_name }} {{ feedback.poster.last_name }} - 
+                {% endif %}
+                {{  feedback.post_date }}
+            </div>
+        </div>
+    </div>
+    
+    {% if not forloop.counter0|divisibleby:2 or feedbacks|length == forloop.counter%}
+        </div>
+    {% endif %}
+    
+{% empty %}
+
+	{{ no_feedbacks }}
+
+{% endfor %}
+
+{% endblock %}
