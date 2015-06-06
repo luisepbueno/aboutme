@@ -25,7 +25,7 @@
                         aria-expanded="false">{{ LANGUAGE_CODE|language_name_local }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">                   
                         {% for lang in LANGUAGES %}
-                            <li><a href="#" class="lang-selector" lang-code="{{ lang.0 }}">{{ lang.1 }}</a></li>
+                            <li><a href="#" class="lang-selector {% if lang.0 == LANGUAGE_CODE %} active {% endif %}" lang-code="{{ lang.0 }}">{{ lang.1 }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
