@@ -5,13 +5,13 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 #from feedbacks.models import Feedback
 
-#@login_required(login_url='/login')
+#@login_required
 #def list_friends(request):
 #    friends = User.objects.all() #values('username', 'first_name', 'last_name')
 #    data = serializers.serialize('json', friends)
 #    return HttpResponse(data, content_type='application/json')
 
-@login_required(login_url='/login')
+@login_required
 def friends(request):
     
     friends = User.objects.all().values('id', 'first_name', 'last_name')

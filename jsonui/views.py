@@ -4,7 +4,7 @@ from feedbacks.models import Feedback
 import json
 
 # Create your views here.
-@login_required(login_url='/jsonui/forbidden$')
+@login_required(login_url='jsonui/forbidden')
 def notifications(request):
     user_not_approved_feedback_count = Feedback.objects.filter(target=request.user, 
                                                                approved=False, 

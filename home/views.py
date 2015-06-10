@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from feedbacks.models import Feedback
 
-@login_required(login_url='/login')
+@login_required
 def home(request):
     
     print request.user

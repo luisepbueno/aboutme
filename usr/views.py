@@ -1,11 +1,54 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from user_profile.models import UserProfile
-from forms import RegistrationForm
+from forms import LoginForm, RegistrationForm
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
-def register(request):
+def user_login(request):
+    # data sent to template
+    data = {}
+
+    # redirect url
+    redir = "/"
+
+    # if user is already authenticated, redirect to home
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(redir)
+
+    # if post method, try to login
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        data["form"] = form
+
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+
+            # authenticate
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect(redir)
+                else:
+                    form.add_error(None, "Account disabled. Contact administrator.")
+            else:
+                form.add_error(None, "Invalid username or password.")
+    # if no post method, create empty login form
+    else:
+        data["form"] = LoginForm()
+
+    return render(request, 'login.html', data);
+
+
+def user_logout(request):
+    logout(request)
+    # TODO: exibir uma mensagem confirmando o logout
+    return HttpResponseRedirect("/")
+
+def user_register(request):
     # data to be sent to template
     data = {}
     
@@ -29,28 +72,18 @@ def register(request):
             password    = form.cleaned_data['password']           
 
             try:
-                print "1"
-                
                 # create user
                 user = User.objects.create_user(username=email,
                                                 first_name=first_name, 
                                                 last_name=last_name, 
                                                 password=password)
-                
-                print "2"
-                
+ 
                 # create empty user profile
                 user_profile = UserProfile(user=user)
-                print "3"
-                #user_profile.save()
-                print "4"
-                
-                
 
                 # login user
                 # TODO: o quer fazer se o login falhar?
                 user = authenticate(username=email, password=password)
-                print "5"
                 if user is not None:
                     if user.is_active:
                         login(request, user)
@@ -67,3 +100,8 @@ def register(request):
         data['form'] = RegistrationForm()
 
     return render(request, 'register.html', data)
+
+@login_required
+def user_profile(request):
+    return HttpResponse('Not implemented')
+

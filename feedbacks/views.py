@@ -4,6 +4,7 @@ from models import Feedback
 from forms import WriteFeedbackForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 def checkSeenFeedbacks(user, feedbacks):
     
@@ -30,7 +31,7 @@ def checkSeenFeedbacks(user, feedbacks):
     
     return new_feedbacks
 
-@login_required(login_url='/login')
+@login_required
 def feedbacks(request):
     #feedbacks = Feedback.objects.select_related('feedback_seen_by').filter(approved=True)
     feedbacks = Feedback.objects.filter(approved=True)
@@ -44,7 +45,7 @@ def feedbacks(request):
         'new_feedbacks': new_feedbacks,
         })
 
-@login_required(login_url='/login')
+@login_required
 def friends_feedbacks(request, friend_id):
 
     # get user
@@ -71,7 +72,7 @@ def friends_feedbacks(request, friend_id):
         'feedbacks': feedbacks,
     })
 
-@login_required(login_url='/login')
+@login_required
 def write_feedback(request, user_id):
     # data to be sent to template
     data = { 'errors': [] }
@@ -111,7 +112,7 @@ def write_feedback(request, user_id):
 
     return render(request, 'write.html', data)
 
-@login_required(login_url='/login')
+@login_required
 def publish_feedback(request, feedback_id):
     # get feedback
     try:
@@ -131,7 +132,7 @@ def publish_feedback(request, feedback_id):
     # go back to user's feedback page
     return HttpResponseRedirect('/feedbacks/'+str(request.user.id))
 
-@login_required(login_url='/login')
+@login_required
 def delete_feedback(request, feedback_id):
     # get feedback
     try:
