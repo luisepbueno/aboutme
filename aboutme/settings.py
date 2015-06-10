@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -36,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'django_facebook',
 	'user_login',
 	'user_logout',
 	'register',
@@ -97,6 +97,7 @@ LANGUAGES = (
     ('en-us', _('English')),
     ('pt-br', _('Brazilian Portuguese')),
     ('fr-fr', _('French')),
+    ('es-es', _('Spanish')),
 )
 
 LOCALE_PATHS = (
@@ -117,8 +118,41 @@ TEMPLATE_DIRS = (
 )
 
 AUTH_PROFILE_MODULE = 'aboutme.UserProfile'
+#AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+
+#AUTHENTICATION_BACKENDS = (
+#    'django_facebook.auth_backends.FacebookBackend',
+#    'django.contrib.auth.backends.ModelBackend',
+#)
+
+#AUTH_USER_MODEL = 'django_facebook.FacebookCustomUser'
+AUTH_USER_MODEL = 'auth.User'
+#AUTH_USER_MODEL = 'aboutme.UserModel'
+
+
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#    'django.contrib.auth.context_processors.auth',
+#    'django.core.context_processors.debug',
+#    'django.core.context_processors.static',
+#    'django.core.context_processors.tz',
+#    'django.core.context_processors.i18n',
+#    'django_facebook.context_processors.facebook',
+#    'django.contrib.messages.context_processors.messages',
+#    'django.core.context_processors.request',
+#)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
+    #'django_facebook.context_processors.facebook',
 )
+
+# Facebook
+#FACEBOOK_APP_ID = '362794893845188'
+#FACEBOOK_APP_SECRET = '5d690741ca476e4d02987c82039b79bb'

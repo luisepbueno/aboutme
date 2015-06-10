@@ -8,15 +8,14 @@ from forms import RegistrationForm
 def register(request):
     # data to be sent to template
     data = {}
-    data['title'] = 'AboutMe registration'
     
     # redirect url
     redir = '/'
-    
+
     # if user is already authenticated, redirect to home
     if request.user.is_authenticated():
         return HttpResponseRedirect(redir)
-    
+
     # if post method, try to register user
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -30,19 +29,28 @@ def register(request):
             password    = form.cleaned_data['password']           
 
             try:
+                print "1"
+                
                 # create user
                 user = User.objects.create_user(username=email,
                                                 first_name=first_name, 
                                                 last_name=last_name, 
                                                 password=password)
                 
+                print "2"
+                
                 # create empty user profile
                 user_profile = UserProfile(user=user)
-                user_profile.save()
+                print "3"
+                #user_profile.save()
+                print "4"
+                
+                
 
                 # login user
                 # TODO: o quer fazer se o login falhar?
                 user = authenticate(username=email, password=password)
+                print "5"
                 if user is not None:
                     if user.is_active:
                         login(request, user)

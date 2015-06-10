@@ -1,6 +1,7 @@
 {% extends "base_home.html" %}
 
 {% load i18n %}
+{% load staticfiles %}
 
 {% block page_title %}
 {% trans "AboutMe" as app_title %}
@@ -10,15 +11,9 @@
 
 {% block content %}
 
-{% trans "There are no feedbacks of you. Invite more friends so they can write about you." as no_feedbacks_of_you %}
-{% trans "There are no feedbacks of your friends." as no_feedbacks_of_your_friends %}
-{% trans "No friends. Invite more friends here." as no_friends %}
-{% trans "Last feedback of you" as last_feedback %}
-{% trans "Last feedback of your friends" as last_feedback_friends %}
-
 <div id="last-user-feedback" class="box  box-lg feedback-box col-md-6" style="float: left; width: 50%; height: 200x;">
 <div class="box box-border" style="width: 100%;">
-    <b>{{ last_feedback }}</b><br>
+    <b>{% trans "Last feedback of you" %}</b><br>
 
     {% if last_user_feedback %}
         <div class="user-pic">
@@ -35,14 +30,14 @@
             </div>
         </div>
     {% else %}
-        {{ no_feedbacks_of_you }}
+        {% trans "There are no feedbacks of you. Invite more friends so they can write about you." %}
     {% endif %}
     </div>
 </div>
 
 <div id="last-friend-feedback" class="box box-lg feedback-box col-md-6" style="float: left; width: 50%; height: 200px;">
 <div class="box box-border" style="width: 100%;">
-    <b>{{ last_feedback_friends }}</b><br>
+    <b>{% trans "Last feedback of your friends" %}</b><br>
 
     {% if last_friend_feedback %}
         <div class="user-pic">
@@ -59,7 +54,7 @@
             </div>
         </div>
     {% else %}
-        {{ no_feedbacks_of_your_friends }}
+        {% trans "There are no feedbacks of your friends." %}
     {% endif %}
 </div>
 </div>
@@ -78,7 +73,7 @@
             </a>
         </div>
     {% empty %}
-        {{ no_friends }}
+        {% trans "No friends. Invite more friends here." %}
     {% endfor %}
 
     <!--<div id="more-friends" class="pull-right">
