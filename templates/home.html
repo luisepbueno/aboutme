@@ -1,0 +1,84 @@
+{% extends "base_home.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block page_title %}
+{% trans "AboutMe" as app_title %}
+{% trans "Home" as section_title %}
+{{ app_title }} - {{ section_title }}
+{% endblock %}
+
+{% block content %}
+
+<div id="last-user-feedback" class="box  box-lg feedback-box col-md-6" style="float: left; width: 50%; height: 200x;">
+<div class="box box-border" style="width: 100%;">
+    <b>{% trans "Last feedback of you" %}</b><br>
+
+    {% if last_user_feedback %}
+        <div class="user-pic">
+            <img src="xyz"></img>
+        </div>
+        <div class="feedback-info">
+            <div class="feedback-target"><a href="{% url 'friends_feedbacks' feedback.target.id %}">{{ last_user_feedback.target.first_name }} {{ last_user_feedback.target.last_name }}</a></div>
+            <div class="feedback-msg well"><p class="lead">{{ last_user_feedback.message }}</p></div>
+            <div class="feedback-post-date small pull-right">
+                {% if not last_user_feedback.anonymous %}
+                    <b>{{ last_user_feedback.poster.first_name }} {{ last_user_feedback.poster.last_name }}</b> - 
+                {% endif %}
+                {{  last_user_feedback.post_date }}
+            </div>
+        </div>
+    {% else %}
+        {% trans "There are no feedbacks of you. Invite more friends so they can write about you." %}
+    {% endif %}
+    </div>
+</div>
+
+<div id="last-friend-feedback" class="box box-lg feedback-box col-md-6" style="float: left; width: 50%; height: 200px;">
+<div class="box box-border" style="width: 100%;">
+    <b>{% trans "Last feedback of your friends" %}</b><br>
+
+    {% if last_friend_feedback %}
+        <div class="user-pic">
+            <img src="xyz"></img>
+        </div>
+        <div class="feedback-info">
+            <div class="feedback-target"><a href="{% url 'friends_feedbacks' feedback.target.id %}">{{ last_friend_feedback.target.first_name }} {{ last_friend_feedback.target.last_name }}</a></div>
+            <div class="feedback-msg well"><p class="lead">{{ last_friend_feedback.message }}</p></div>
+            <div class="feedback-post-date small pull-right">
+                {% if not last_friend_feedback.anonymous %}
+                    <b>{{ last_friend_feedback.poster.first_name }} {{ last_friend_feedback.poster.last_name }}</b> - 
+                {% endif %}
+                {{  last_friend_feedback.post_date }}
+            </div>
+        </div>
+    {% else %}
+        {% trans "There are no feedbacks of your friends." %}
+    {% endif %}
+</div>
+</div>
+
+<div id="friend-bar" class="row" style="width: 100%;">
+<div class="box box-border" style="width: 100%">
+    {% for friend in friends %}
+        <div class="box-sm col-md-1">
+            <a href="/feedbacks/{{ friend.id }}">
+                <div class="user-pic">
+                    <img src="xyz"/>
+                </div>
+                <div style="clear: both;">
+                    <b>{{ friend.first_name }} {{ friend.last_name }}</b>
+                </div>
+            </a>
+        </div>
+    {% empty %}
+        {% trans "No friends. Invite more friends here." %}
+    {% endfor %}
+
+    <!--<div id="more-friends" class="pull-right">
+        <a href="#"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+    </div>-->
+</div>
+</div>
+{% endblock %}
