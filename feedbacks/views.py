@@ -1,5 +1,6 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from models import Feedback
 from forms import WriteFeedbackForm
 from django.contrib.auth.decorators import login_required
@@ -50,7 +51,7 @@ def friends_feedbacks(request, friend_id):
 
     # get user
     try:
-        friend = User.objects.get(pk=friend_id)#.values('id', 'first_name', 'last_name')
+        friend = get_user_model().objects.get(pk=friend_id)#.values('id', 'first_name', 'last_name')
     except:
         return HttpResponse('Could not find user ' + friend_id)
 

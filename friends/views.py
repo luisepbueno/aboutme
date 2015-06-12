@@ -1,6 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 #from feedbacks.models import Feedback
@@ -14,7 +15,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def friends(request):
     
-    friends = User.objects.all().values('id', 'first_name', 'last_name')
+    #friends = User.objects.all().values('id', 'first_name', 'last_name')
+    friends = get_user_model().objects.all().exclude(pk=request.user.id)
 
     return render(request, 'friends.html', {
         'user': request.user,

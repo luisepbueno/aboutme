@@ -109,24 +109,30 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT='/home/luisbuen/www/aboutme/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, '_static')
 
 TEMPLATE_DIRS = (
 	os.path.join(BASE_DIR, 'templates'),
 )
 
-AUTH_PROFILE_MODULE = 'aboutme.UserProfile'
-#AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+#AUTH_PROFILE_MODULE = 'aboutme.UserProfile'
+AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
 
-#AUTHENTICATION_BACKENDS = (
-#    'django_facebook.auth_backends.FacebookBackend',
-#    'django.contrib.auth.backends.ModelBackend',
-#)
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
-#AUTH_USER_MODEL = 'django_facebook.FacebookCustomUser'
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'django_facebook.FacebookCustomUser'
+#AUTH_USER_MODEL = 'auth.User'
 #AUTH_USER_MODEL = 'aboutme.UserModel'
 
 LOGIN_URL = '/usr/login'
+
+# Facebook
+FACEBOOK_APP_ID             = '362794893845188'
+FACEBOOK_APP_SECRET         = '5d690741ca476e4d02987c82039b79bb'
+FACEBOOK_PROFILE_IMAGE_PATH = os.path.join('static', 'facebook_profiles/%Y/%m/%d')
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -140,6 +146,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django_facebook.context_processors.facebook',
 )
 
-# Facebook
-FACEBOOK_APP_ID = '362794893845188'
-FACEBOOK_APP_SECRET = '5d690741ca476e4d02987c82039b79bb'

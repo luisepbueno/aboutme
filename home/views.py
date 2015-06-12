@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth import get_user_model
 #from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from feedbacks.models import Feedback
 
@@ -22,12 +23,8 @@ def home(request):
     except:
         last_friend_feedback = None
     
-    # remove logged user from friends' list
-    friends = User.objects.all().exclude(pk=request.user.id)
-    
-    print "estou no home!"
-    print last_user_feedback
-    print last_friend_feedback
+    # get friends and remove logged user from friends' list
+    friends = get_user_model().objects.all().exclude(pk=request.user.id)
 
     return render(request, 'home.html', {
         'user': request.user,

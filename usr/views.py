@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from forms import LoginForm, RegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -41,6 +42,12 @@ def user_login(request):
         data["form"] = LoginForm()
 
     return render(request, 'login.html', data);
+    #from django.shortcuts import render_to_response
+    #from django.template.context import RequestContext
+    #print "1"
+    #context = RequestContext(request)
+    #print "2"
+    #return render_to_response('login.html', data, context_instance=RequestContext(request))
 
 
 def user_logout(request):
@@ -49,6 +56,9 @@ def user_logout(request):
     return HttpResponseRedirect("/")
 
 def user_register(request):
+    
+    from django.contrib.auth.models import User
+    
     # data to be sent to template
     data = {}
     
