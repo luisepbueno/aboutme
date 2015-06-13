@@ -41,7 +41,7 @@
 
     {% if last_friend_feedback %}
         <div class="user-pic">
-            <img src="xyz"></img>
+            <img src="/{{ feedback.target.image }}"></img>
         </div>
         <div class="feedback-info">
             <div class="feedback-target"><a href="{% url 'friends_feedbacks' feedback.target.id %}">{{ last_friend_feedback.target.first_name }} {{ last_friend_feedback.target.last_name }}</a></div>
@@ -65,7 +65,7 @@
         <div class="box-sm col-md-1">
             <a href="/feedbacks/{{ friend.id }}">
                 <div class="user-pic">
-                    <img src="xyz"/>
+                    <img src="/{{ friend.image }}"/>
                 </div>
                 <div style="clear: both;">
                     <b>{{ friend.first_name }} {{ friend.last_name }}</b>

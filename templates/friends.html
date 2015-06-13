@@ -7,7 +7,7 @@
 {% block content %}
 <h1 class="section-header">{% trans "Friends" %}</h1>
     
-{% for user in friends %}
+{% for friend in friends %}
 
     {% if forloop.counter0|divisibleby:4 %}
         <div class="row" style="margin-bottom: 25px">
@@ -15,11 +15,11 @@
 
     <div class="box box-lg col-md-3">
         <div class="user-pic" style="float: left;">
-            <img src="xyz"/><br>
+            <img src="/{{ friend.image }}"></img>
         </div>
         <div style="float: left; margin-left: 15px;">
-            <a href="/feedbacks/{{ user.id }}"><b>{{ user.first_name }} {{ user.last_name }}</b></a><br>
-            <a href="/feedbacks/{{ user.id }}/write">{% trans "Write feedback" %}</a>
+            <a href="/feedbacks/{{ friend.id }}"><b>{{ friend.first_name }} {{ friend.last_name }}</b></a><br>
+            <a href="/feedbacks/{{ friend.id }}/write">{% trans "Write feedback" %}</a>
         </div>
     </div>
     
