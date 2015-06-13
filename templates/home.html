@@ -17,7 +17,7 @@
 
     {% if last_user_feedback %}
         <div class="user-pic">
-            <img src="xyz"></img>
+            <img src="/{{ last_user_feedback.target.image }}"></img>
         </div>
         <div class="feedback-info">
             <div class="feedback-target"><a href="{% url 'friends_feedbacks' feedback.target.id %}">{{ last_user_feedback.target.first_name }} {{ last_user_feedback.target.last_name }}</a></div>
@@ -41,10 +41,10 @@
 
     {% if last_friend_feedback %}
         <div class="user-pic">
-            <img src="/{{ feedback.target.image }}"></img>
+            <img src="/{{ last_friend_feedback.target.image }}"></img>
         </div>
         <div class="feedback-info">
-            <div class="feedback-target"><a href="{% url 'friends_feedbacks' feedback.target.id %}">{{ last_friend_feedback.target.first_name }} {{ last_friend_feedback.target.last_name }}</a></div>
+            <div class="feedback-target"><a href="{% url 'friends_feedbacks' last_friend_feedback.target.id %}">{{ last_friend_feedback.target.first_name }} {{ last_friend_feedback.target.last_name }}</a></div>
             <div class="feedback-msg well"><p class="lead">{{ last_friend_feedback.message }}</p></div>
             <div class="feedback-post-date small pull-right">
                 {% if not last_friend_feedback.anonymous %}

@@ -8,8 +8,6 @@ from feedbacks.models import Feedback
 @login_required
 def home(request):
     
-    print request.user
-    
     try:
         last_user_feedback = Feedback.objects.filter(target=request.user,
                                                     approved=True,

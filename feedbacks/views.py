@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 def checkSeenFeedbacks(user, feedbacks):
-    
+
     # new feedbacks counter
     new_feedbacks = 0
     
@@ -79,7 +79,7 @@ def write_feedback(request, user_id):
     data = { 'errors': [] }
     
     # get users
-    target_user = User.objects.get(pk=user_id)
+    target_user = get_user_model().objects.get(pk=user_id)
     poster_user = request.user
     
     data['user'] = poster_user
@@ -111,7 +111,7 @@ def write_feedback(request, user_id):
     else:
         data['form'] = WriteFeedbackForm()
 
-    return render(request, 'write.html', data)
+    return render(request, 'post_feedback.html', data)
 
 @login_required
 def publish_feedback(request, feedback_id):
@@ -131,7 +131,7 @@ def publish_feedback(request, feedback_id):
     feedback.save()
 
     # go back to user's feedback page
-    return HttpResponseRedirect('/feedbacks/'+str(request.user.id))
+    return HttpResponseRedirect(reverse('feedbacks'), args=[request.user.id])
 
 @login_required
 def delete_feedback(request, feedback_id):
@@ -141,7 +141,7 @@ def delete_feedback(request, feedback_id):
     except:
         return HttpResponse('Could not find feedback')
 
-    # do not allow to touch feedbacks for whici
+    # do not allow to touch feedbacks for which
     # the target is not the logged user
     if(feedback.target!=request.user):
         return HttpResponse('You are not allowed to delete feedbacks that are not yours')
@@ -151,4 +151,4 @@ def delete_feedback(request, feedback_id):
     feedback.save()
 
     # go back to user's feedback page
-    return HttpResponseRedirect('/feedbacks/'+str(request.user.id))
+    return HttpResponseRedirect(reverse('feedbacks', args=[request.user.id]))
